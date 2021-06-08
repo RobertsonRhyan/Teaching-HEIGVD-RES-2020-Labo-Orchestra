@@ -1,0 +1,22 @@
+{
+  "name": "musician",
+  "version": "1.0.0",
+  "description": "Simulates a musician playing an instrument",
+  "main": "musician.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobertsonRhyan/Teaching-HEIGVD-RES-2020-Labo-Orchestra.git"
+  },
+  "author": "Rhyan Robertson <rhyan.robertson@heig-vd.ch>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RobertsonRhyan/Teaching-HEIGVD-RES-2020-Labo-Orchestra/issues"
+  },
+  "homepage": "https://github.com/RobertsonRhyan/Teaching-HEIGVD-RES-2020-Labo-Orchestra#readme",
+  "dependencies": {
+    "uuidv4": "^6.2.9"
+  }
+}
