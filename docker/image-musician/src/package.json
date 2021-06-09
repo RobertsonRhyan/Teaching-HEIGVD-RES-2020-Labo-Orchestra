@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/RobertsonRhyan/Teaching-HEIGVD-RES-2020-Labo-Orchestra#readme",
   "dependencies": {
-    "uuidv4": "^6.2.9"
+    "uuid": "^8.3.2"
   }
 }
