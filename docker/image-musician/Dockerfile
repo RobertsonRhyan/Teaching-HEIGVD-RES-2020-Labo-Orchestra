@@ -12,8 +12,7 @@ WORKDIR /opt/app
 # Copy app source file to container
 COPY src ./
 
-# Install latest npm with package.json copied previously
-RUN npm install npm@latest -g
+RUN npm install
 
 # Starts node
 ENTRYPOINT [ "node", "musician.js" ]
