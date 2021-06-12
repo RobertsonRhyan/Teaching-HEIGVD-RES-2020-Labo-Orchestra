@@ -43,7 +43,7 @@ function Musician(instrumentRequest){
     this.uuid = uuidv4();
 
     // Get current time
-    var time = new Date()
+    //var time = new Date()
 
     // This function prepares a payload and sends it.
     Musician.prototype.update = function(){
@@ -55,9 +55,9 @@ function Musician(instrumentRequest){
          */
         var data = {
             uuid : this.uuid,
-            instrument : instrumentRequest,
+            //instrument : instrumentRequest,
             sound : instrumentMap[instrumentRequest],
-            activeSince : time.toJSON()
+            //activeSince : time.toJSON()
         }
 
         payload = JSON.stringify(data);
