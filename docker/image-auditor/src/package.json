@@ -1,0 +1,22 @@
+{
+  "name": "auditor",
+  "version": "1.0.0",
+  "description": "Simulates someone who listens to the orchestra. This application has two responsibilities. Firstly, it must listen to Musicians and keep track of active musicians. A musician is active if it has played a sound during the last 5 seconds. Secondly, it must make this information available to you. Concretely, this means that it should implement a very simple TCP-based protocol.",
+  "main": "auditor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobertsonRhyan/Teaching-HEIGVD-RES-2020-Labo-Orchestra.git"
+  },
+  "author": "Rhyan Robertson <rhyan.robertson@heig-vd.ch>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RobertsonRhyan/Teaching-HEIGVD-RES-2020-Labo-Orchestra/issues"
+  },
+  "homepage": "https://github.com/RobertsonRhyan/Teaching-HEIGVD-RES-2020-Labo-Orchestra#readme",
+  "dependencies": {
+    "uuid": "^8.3.2"
+  }
+}
