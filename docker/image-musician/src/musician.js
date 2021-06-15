@@ -41,6 +41,10 @@ function Musician(instrumentRequest){
 
     // Get musician uuid
     this.uuid = uuidv4();
+    
+    /* Debug */
+    // this.uuid = '47669dd6-970a-4933-b327-523a1e561d34';
+
 
     // Get current time
     //var time = new Date()
