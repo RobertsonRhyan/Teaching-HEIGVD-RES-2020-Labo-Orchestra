@@ -112,7 +112,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | What **payload** should we put in the UDP datagrams? |
 | | *The **sound** emitted by the musician's instrument and the musician's **UUID**.* |
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |
-| | *We use 3 Hash Tables (Map): <br />1. One in the Musician App to "map" a instrument to a sound. <br />2. One in the Auditor App for the opposite (sound to instrument). <br />3. Another one in the Auditor App for the TCP server to keep track of active Musicians using their UUID as a key.* |
+| | *We use 3 Hash Tables (Map) as dictionaries and 1 Array : <br />1. One Map in the Musician App to "map" a instrument to a sound. <br />2. One Map in the Auditor App for the opposite (sound to instrument). <br />3. Another Map in the Auditor App to store musicians ( {uuid, instrument, activeSince, lastHeard} )using their UUID as a key.<br />4. One Array in the Auditor App for the TCP server return the list of active Musicians.* |
 
 
 ## Task 2: implement a "musician" Node.js application
@@ -128,20 +128,32 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | How can we use the `https://www.npmjs.com/` web site?  |
 | | *We can use it to find packages, for example [uuid](https://www.npmjs.com/package/uuid).* |
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
-| | *[Q5](#Q5-:)* |
-|Question | In Node.js, how can we execute a function on a **periodic** basis? |
-| | *Enter your response here...*  |
-|Question | In Node.js, how can we **emit UDP datagrams**? |
-| | *Enter your response here...*  |
-|Question | In Node.js, how can we **access the command line arguments**? |
-| | *Enter your response here...*  |
-
-###### Q5 :
 
 ```javascript
 const { v4: uuidv4 } = require('uuid');
 uuidv4();
 ```
+| | |
+| ---  | --- |
+|Question | In Node.js, how can we execute a function on a **periodic** basis? |
+| | *I used `setInterval(func, delay)`*. |
+|Question | In Node.js, how can we **emit UDP datagrams**? |
+
+```javascript
+// https://github.com/SoftEng-HEIGVD/Teaching-Docker-UDP-sensors/blob/master/src/thermometer.js
+var dgram = require('dgram');
+var s = dgram.createSocket('udp4');
+
+message = new Buffer(payload);
+s.send(message, 0, message.length, protocol.PROTOCOL_PORT, protocol.PROTOCOL_MULTICAST_ADDRESS, function(err, bytes) {
+			console.log("Sending payload: " + payload + " via port " + s.address().port);
+});
+```
+| | |
+| ---  | --- |
+|Question | In Node.js, how can we **access the command line arguments**? |
+| | *`process.argv[N]`* |
+
 
 
 
@@ -150,17 +162,17 @@ uuidv4();
 | #  | Topic |
 | ---  | --- |
 |Question | How do we **define and build our own Docker image**?|
-| | *Enter your response here...*  |
+| | *We create a Dockerfile with the necessary configuration and run it with `docker build`.* |
 |Question | How can we use the `ENTRYPOINT` statement in our Dockerfile?  |
-| | *Enter your response here...*  |
+| | *We use it to start our node app : `ENTRYPOINT [ "node", "musician.js" ]` for example.* |
 |Question | After building our Docker image, how do we use it to **run containers**?  |
-| | *Enter your response here...*  |
+| | *`$ docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]`.* |
 |Question | How do we get the list of all **running containers**?  |
-| | *Enter your response here...*  |
+| | *`docker ps`, and `-a`* to list all |
 |Question | How do we **stop/kill** one running container?  |
-| | *Enter your response here...*  |
+| | *`docker stop [CONTAINER_NAME]` to send a `SIGTERM` then after a grace period `SIGKILL` to the main process inside the container or `docker kill [CONTAINER_NAME]` to send a `SIGKILL` directly.* |
 |Question | How can we check that our running containers are effectively sending UDP datagrams?  |
-| | *Enter your response here...*  |
+| | *We can use `tcpdump` or Wirehark.* ![](images/tcpdump.png)<br />![](images/Wireshark.png) |
 
 
 ## Task 4: implement an "auditor" Node.js application
@@ -168,15 +180,81 @@ uuidv4();
 | #  | Topic |
 | ---  | ---  |
 |Question | With Node.js, how can we listen for UDP datagrams in a multicast group? |
-| | *Enter your response here...*  |
+
+```javascript
+// Step 1 : bind
+/**
+ * Listen for datagram messages on port {number} PROTOCOL_PORT
+ */
+udpSocket.bind(protocol.PROTOCOL_PORT, () => {
+    // Tells the kernel to join a multicast group at the given multicastAddress
+    udpSocket.addMembership(protocol.PROTOCOL_MULTICAST_ADDRESS);
+    console.log("binded");
+});
+
+// Step 2 : listening
+/**
+ * Start listening on port {number} PROTOCOL_PORT
+ */
+udpSocket.on('listening', () => {
+    const address = udpSocket.address();
+    console.log(`server listening ${address.address}:${address.port}`);
+});
+
+// Step 3 : Wait for 'message' event
+/**
+ * The 'message' event is emitted when a new datagram is available on a socket. 
+ * Calls getMessage(msg).
+ * The event handler function is passed two arguments: msg and rinfo :
+ *  - msg {Buffer} The message.
+ *  - rinfo {Object} Remote address information.
+ *      - address {string} The sender address.
+ *      - family {string} The address family ('IPv4' or 'IPv6').
+ *      - port {number} The sender port.
+ *      - size {number} The message size.
+ */
+udpSocket.on('message', (msg, rinfo) => {
+    console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
+
+    getMessage(msg);
+
+});
+```
+
+| | |
+| --- | --- |
 |Question | How can we use the `Map` built-in object introduced in ECMAScript 6 to implement a **dictionary**?  |
-| | *Enter your response here...* |
+| | *A Map is a dictionary, it store unique key-value pairs. Using `set(key, values)` with a key that already exists in Map simply updates the values.* |
 |Question | How can we use the `Moment.js` npm module to help us with **date manipulations** and formatting?  |
-| | *Enter your response here...* |
+| | *I didn't use Moment.js but you could use `diff()`* to get the difference in [ms] between current time and a musician's "lastHear" time. |
 |Question | When and how do we **get rid of inactive players**?  |
-| | *Enter your response here...* |
+| | *Only when a new TCP connection is created. Seems more optimized for small amounts of musician, then Map should get to big.* |
 |Question | How do I implement a **simple TCP server** in Node.js?  |
-| | *Enter your response here...* |
+
+```javascript
+// We use a standard Node.js module to work with TCP
+const net = require('net');
+const tcpServer = net.createServer();
+/**
+ * Start a TCP server listening for connections on port {number} PROTOCOL_PORT
+ */
+tcpServer.listen(protocol.PROTOCOL_PORT, () => {
+    console.log("opened server on port : " + protocol.PROTOCOL_PORT);
+});
+
+
+/**
+ * TCP server sends a {JSON} list of active musician
+ * active = less then {number} ACTIVE_INTERVAL
+ * returns "[]" if not active musicians (Confirmed by Assistant)
+ */
+tcpServer.on("connection", (socket) => {
+	// Send payload
+    socket.write(payload);
+    // End connection
+    socket.end();
+})
+```
 
 
 ## Task 5: package the "auditor" app in a Docker image

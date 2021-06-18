@@ -155,7 +155,7 @@ tcpServer.on("connection", (socket) => {
     // one's (last head not more then 5sec ago) to activeMusicians array.
     musiciansMap.forEach(function(value, key){
         if(now - value.lastHeard > ACTIVE_INTERVAL){
-            musiciansMap.delete(key);   // Remove inactive musicians from map
+            musiciansMap.delete(key);   // Remove inactive musicians from map (Optional)
         }else{
             activeMusicians.push({uuid: key, instrument: value.instrument, 
                 activeSince: new Date(value.activeSince)});
