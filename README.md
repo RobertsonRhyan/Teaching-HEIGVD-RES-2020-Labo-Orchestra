@@ -104,15 +104,15 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | --- | --- |
 |Question | How can we represent the system in an **architecture diagram**, which gives information both about the Docker containers, the communication protocols and the commands? |
-| | *Insert your diagram here...* |
+| | ![](images/RES-Labo-Orchestra-diag.png) |
 |Question | Who is going to **send UDP datagrams** and **when**? |
-| | *Enter your response here...* |
+| | *All Musicians, once every second.* |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
-| | *Enter your response here...* |
+| | *All Auditors listen for UDP datagrams sent to multicast "239.255.22.5 (01:00:5e:7f:16:05)".* <br />- *If it's from an musician already in the list and that has been active less then **5 seconds** ago, it updates the time it was **last heard**. Else it update both **last heard** and **active since** to current time.*<br />- *If it isn't from a musician in the list, it adds the musician to the list and update both **last heard** and **active since** to current time* |
 |Question | What **payload** should we put in the UDP datagrams? |
-| | *Enter your response here...* |
+| | *The **sound** emitted by the musician's instrument and the musician's **UUID**.* |
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |
-| | *Enter your response here...* |
+| | *We use 3 Hash Tables (Map): <br />1. One in the Musician App to "map" a instrument to a sound. <br />2. One in the Auditor App for the opposite (sound to instrument). <br />3. Another one in the Auditor App for the TCP server to keep track of active Musicians using their UUID as a key.* |
 
 
 ## Task 2: implement a "musician" Node.js application
@@ -120,9 +120,9 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | In a JavaScript program, if we have an object, how can we **serialize it in JSON**? |
-| | *Enter your response here...*  |
+| | Object to JSON string : `JSON.stringify(object)`<br />JSON string to object : `JSON.parse(jsonString)` |
 |Question | What is **npm**?  |
-| | *Enter your response here...*  |
+| | "npm (Node Package Manager) is the package manager for Node.js"<br /> [- npmjs.com/about](https://npmjs.com/about) |
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag?  |
 | | *Enter your response here...*  |
 |Question | How can we use the `https://www.npmjs.com/` web site?  |
