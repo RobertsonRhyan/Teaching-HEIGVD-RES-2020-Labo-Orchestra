@@ -89,10 +89,6 @@ function getMessage(msg){
     }else{
         console.log("Message from musician isn't valid");
     }
-    
-
-
-
 }
 
 /**
