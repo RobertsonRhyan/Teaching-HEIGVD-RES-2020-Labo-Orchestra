@@ -120,21 +120,29 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | In a JavaScript program, if we have an object, how can we **serialize it in JSON**? |
-| | Object to JSON string : `JSON.stringify(object)`<br />JSON string to object : `JSON.parse(jsonString)` |
+| | *Object to JSON string : `JSON.stringify(object)`<br />JSON string to object : `JSON.parse(jsonString)`* |
 |Question | What is **npm**?  |
-| | "npm (Node Package Manager) is the package manager for Node.js"<br /> [- npmjs.com/about](https://npmjs.com/about) |
+| | *"npm (Node Package Manager) is the package manager for Node.js"<br /> [- npmjs.com/about](https://npmjs.com/about)* |
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag?  |
-| | *Enter your response here...*  |
+| | *`npm install <package_name>` installs a package locally. If you run `npm install`* and there is a `package.json` file in the directory, npm will install the packages in the dependencies section.<br />Before npm 5.0.0, the `--save`  flag was necessary after the package name to save it to the package.json. It's added by default now. |
 |Question | How can we use the `https://www.npmjs.com/` web site?  |
-| | *Enter your response here...*  |
+| | *We can use it to find packages, for example [uuid](https://www.npmjs.com/package/uuid).* |
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
-| | *Enter your response here...*  |
+| | *[Q5](#Q5-:)* |
 |Question | In Node.js, how can we execute a function on a **periodic** basis? |
 | | *Enter your response here...*  |
 |Question | In Node.js, how can we **emit UDP datagrams**? |
 | | *Enter your response here...*  |
 |Question | In Node.js, how can we **access the command line arguments**? |
 | | *Enter your response here...*  |
+
+###### Q5 :
+
+```javascript
+const { v4: uuidv4 } = require('uuid');
+uuidv4();
+```
+
 
 
 ## Task 3: package the "musician" app in a Docker image
