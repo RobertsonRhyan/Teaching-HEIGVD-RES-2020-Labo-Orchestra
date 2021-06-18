@@ -128,23 +128,12 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | How can we use the `https://www.npmjs.com/` web site?  |
 | | *We can use it to find packages, for example [uuid](https://www.npmjs.com/package/uuid).* |
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
-| | *[Q5](#Q5-:)* |
-|Question | In Node.js, how can we execute a function on a **periodic** basis? |
-| | *Enter your response here...*  |
-|Question | In Node.js, how can we **emit UDP datagrams**? |
-| | *Enter your response here...*  |
-|Question | In Node.js, how can we **access the command line arguments**? |
-| | *Enter your response here...*  |
-
 ###### Q5 :
 
 ```javascript
 const { v4: uuidv4 } = require('uuid');
 uuidv4();
 ```
-
-
-
 ## Task 3: package the "musician" app in a Docker image
 
 | #  | Topic |
