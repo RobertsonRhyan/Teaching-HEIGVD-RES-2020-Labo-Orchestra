@@ -228,7 +228,7 @@ udpSocket.on('message', (msg, rinfo) => {
 |Question | How can we use the `Moment.js` npm module to help us with **date manipulations** and formatting?  |
 | | *I didn't use Moment.js but you could use `diff()`* to get the difference in [ms] between current time and a musician's "lastHear" time. |
 |Question | When and how do we **get rid of inactive players**?  |
-| | *Only when a new TCP connection is created. Seems more optimized for small amounts of musician, then Map should get to big.* |
+| | *Only when a new TCP connection is created. Seems more optimized for small amounts of musician, the Map shouldn't get to big.* |
 |Question | How do I implement a **simple TCP server** in Node.js?  |
 
 ```javascript
