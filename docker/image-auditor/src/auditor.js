@@ -11,10 +11,12 @@ const net = require('net');
 const { version: uuidVersion } = require('uuid');
 const { validate: uuidValidate } = require('uuid');
 
-
+// Create UDP socket
 const udpSocket = dgram.createSocket('udp4');
+// Create TCP server
 const tcpServer = net.createServer();
 
+// Map sound to instrument
 const instrumentMap = new Map(
     [
         ["ti-ta-ti", "piano"],
@@ -25,8 +27,10 @@ const instrumentMap = new Map(
     ]
 )
 
+// Set 5 seconds as cutoff time for a musician to be considered as active.
 const ACTIVE_INTERVAL = 5000;
 
+// Store all received musician. Inactive musicians are removed after a TCP connection
 let musiciansMap = new Map();
 
 /**
