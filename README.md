@@ -262,7 +262,7 @@ tcpServer.on("connection", (socket) => {
 | #  | Topic |
 | ---  | --- |
 |Question | How do we validate that the whole system works, once we have built our Docker image? |
-| | *Enter your response here...* |
+| | *We can run validate.sh. It kills/removes all containers, rebuilds images and runs a Validation app.<br /> We could also check manually by ruuning a few musician and a few auditor containers (we diffrent mapped TCP ports).* |
 
 
 ## Constraints
